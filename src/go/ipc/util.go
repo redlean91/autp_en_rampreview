@@ -7,7 +7,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/oov/aviutl_rampreview/src/go/ods"
+	"github.com/redlean91/autp_en_rampreview/src/go/ods"
 )
 
 func readUInt64() (uint64, error) {
