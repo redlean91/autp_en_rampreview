@@ -70,7 +70,7 @@ func (ipc *IPC) dispatch(cmd string) error {
 			return errors.New("not initialized yet")
 		}
 		buf := make([]byte, size)
-		copy(buf, ((*[1 << 49]byte)(unsafe.Pointer(ipc.mappedView)))[:size:size])
+		copy(buf, unsafe.Slice((*byte)(unsafe.Pointer(ipc.mappedView)), size))
 		ipc.cache[key] = buf
 		return writeUint32(0x80000000)
 
@@ -86,7 +86,7 @@ func (ipc *IPC) dispatch(cmd string) error {
 			return err
 		}
 		if buf, ok := ipc.cache[key]; ok {
-			copy(((*[1 << 49]byte)(unsafe.Pointer(ipc.mappedView)))[:], buf)
+			copy(unsafe.Slice((*byte)(unsafe.Pointer(ipc.mappedView)), len(buf)), buf)
 			err = writeInt32(int32(len(buf)))
 		} else {
 			err = writeInt32(0)
@@ -112,7 +112,7 @@ func (ipc *IPC) dispatch(cmd string) error {
 			return errors.New("not initialized yet")
 		}
 		buf := make([]byte, size)
-		copy(buf, ((*[1 << 49]byte)(unsafe.Pointer(ipc.mappedView)))[:size:size])
+		copy(buf, unsafe.Slice((*byte)(unsafe.Pointer(ipc.mappedView)), size))
 		ipc.storage[key] = buf
 		if rand.Float32() > 0.97 {
 			runtime.GC()
@@ -140,7 +140,7 @@ func (ipc *IPC) dispatch(cmd string) error {
 			return err
 		}
 		if buf, ok := ipc.storage[key]; ok {
-			copy(((*[1 << 49]byte)(unsafe.Pointer(ipc.mappedView)))[:], buf)
+			copy(unsafe.Slice((*byte)(unsafe.Pointer(ipc.mappedView)), len(buf)), buf)
 			err = writeInt32(int32(len(buf)))
 		} else {
 			err = writeInt32(0)
