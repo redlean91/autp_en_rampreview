@@ -432,7 +432,7 @@ begin
 
       Height := FFontHeight + GetSystemMetrics(SM_CYEDGE) * 2;
       FDrawFrameCheckBox := CreateWindowW('BUTTON',
-        'Draw border during preview', BS_CHECKBOX or
+        'Draw red border during preview', BS_CHECKBOX or
         WS_CHILD or WS_VISIBLE, 8, Y, 160, Height, Window, 5, Filter^.DLLHInst, nil);
       SendMessageW(FDrawFrameCheckBox, WM_SETFONT, WPARAM(FFont), 0);
       Inc(Y, Height + 8);
@@ -1291,16 +1291,16 @@ var
   EndCapturingProc: TRPEndCapturing;
 begin
   if Filter^.ExFunc^.GetSysInfo(nil, @SI) = AVIUTL_FALSE then
-    raise Exception.Create('Failed to retrieve information from AviUtl');
+    raise Exception.Create('AviUtl のシステム情報取得に失敗しました');
 
   FillChar(FI, SizeOf(TFileInfo), 0);
   if Filter^.ExFunc^.GetFileInfo(Edit, @FI) = AVIUTL_FALSE then
     raise Exception.Create(
-      'Failed to retrieve information about the project');
+      '編集中のファイルの情報取得に失敗しました');
   if (FI.Width = 0) or (FI.Height = 0) then
     Exit;
   if Filter^.ExFunc^.GetSelectFrame(Edit, FStartFrame, FEndFrame) = AVIUTL_FALSE then
-    raise Exception.Create('Unable to retrieve the selection');
+    raise Exception.Create('選択範囲を取得できませんでした');
 
   Clear();
 
@@ -1398,7 +1398,7 @@ begin
     else
     begin
       MessageBoxW(FWindow, PWideChar(
-        'An error occurred while creating the cache data.'#13#10#13#10 + FErrorMessage),
+        'キャッシュデータの作成中にエラーが発生しました。'#13#10#13#10 + FErrorMessage),
         PluginName, MB_ICONERROR);
     end;
   end;
@@ -1451,7 +1451,7 @@ begin
     begin
       raise Exception.Create('failed to execute: ZRamPreview.exe'#13#10 +
         WideString(E.Message) + #13#10#13#10 +
-        'Please check to see if your antivirus software is blocking the program from running.'#13#10 + 'Also, if AviUtl is located in a folder containing Japanese characters or spaces, try moving it to a location such as “C:\AviUtl\AviUtl.exe”.');
+        'アンチウィルスソフトがプログラム実行を阻害していないか確認してください。'#13#10 + 'また、AviUtl が日本語やスペースが含まれている場所にある場合は "C:\AviUtl\AviUtl.exe" などに移動してみてください。');
     end;
   end;
   FRemoteProcess.CloseStderr;
@@ -1471,7 +1471,7 @@ begin
   except
     on E: Exception do
       MessageBoxW(FWindow, PWideChar(
-        WideString('An error occurred with DuplicateHandle '#13#10#13#10 +
+        WideString('DuplicateHandle でエラーが発生しました。'#13#10#13#10 +
         WideString(E.Message))),
         PluginName, MB_ICONERROR);
   end;

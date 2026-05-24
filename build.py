@@ -33,7 +33,7 @@ shutil.copyfile(README, BIN_DIR / "ZRamPreview.txt")
 # Version info
 # =========================================
 
-VERSION = "v0.3rc7"
+VERSION = "v0.3rc8-red"
 
 try:
     GITHASH = subprocess.check_output(

@@ -14,7 +14,7 @@
       </Flags>
       <SessionStorage Value="None"/>
       <MainUnit Value="0"/>
-      <Title Value="Exedit RAM Preview for AviUtl"/>
+      <Title Value="拡張編集RAMプレビュー for AviUtl"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
