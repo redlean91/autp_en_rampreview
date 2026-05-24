@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 
-	"github.com/oov/aviutl_rampreview/src/go/ipc"
-	"github.com/oov/aviutl_rampreview/src/go/ods"
+	"github.com/redlean91/autp_en_rampreview/src/go/ipc"
+	"github.com/redlean91/autp_en_rampreview/src/go/ods"
 )
 
 func main() {
